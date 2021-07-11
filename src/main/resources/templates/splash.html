@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Splash</title>
+</head>
+<body>
+    <h1 th:text="${album1.getTitle()}"></h1>
+    <h3 th:text="'The artist is '+${album1.getArtist()}"></h3>
+    <p  th:text="'it has '+${album1.getSongCount()}+' musics'"}></p>
+    <p  th:text="'The length in seconds is ' + ${album1.getLengthSecs()}"></p>
+    <img th:src="${album1.getImageUrl()}" />
+    <br><br>
+    <h1 th:text="${album2.getTitle()}"></h1>
+    <h3 th:text="'The artist is '+${album2.getArtist()}"></h3>
+    <p  th:text="'it has '+${album2.getSongCount()}+' musics'"}></p>
+    <p  th:text="'The length in seconds is ' + ${album2.getLengthSecs()}"></p>
+    <img th:src="${album2.getImageUrl()}" />
+    <br><br>
+    <h1 th:text="${album3.getTitle()}"></h1>
+    <h3 th:text="'The artist is '+${album3.getArtist()}"></h3>
+    <p  th:text="'it has '+${album3.getSongCount()}+' musics'"}></p>
+    <p  th:text="'The length in seconds is ' + ${album3.getLengthSecs()}"></p>
+    <img th:src="${album3.getImageUrl()}" />
+</body>
+</html>
