@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Test</h1>
+
+<h1>Submission Form</h1>
+<form action="#" th:action="@{/test}" th:object="${testObj}" method="post">
+  <p>Message: <input type="text" th:field="*{text}"/></p>
+<!--  <p>Rating: <input type="number" th:field="*{rating}"/></p>-->
+  <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"></p>
+</form>
+</body>
+</html>

@@ -2,15 +2,14 @@ package com.album.songr;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @Controller
 public class Controllers {
+
+    private TestModelDBRepository testModelDBRepository ;
 
     @GetMapping("/")
     String splahRoute(){
@@ -55,6 +54,21 @@ public class Controllers {
         model.addAttribute("album2" , album2);
         model.addAttribute("album3" , album3);
         return "splash" ;
+    }
+
+
+    @GetMapping("/test")
+    public String testForm(Model model){
+        model.addAttribute("testObj" , new TestModelDB());
+        return "test" ;
+    }
+
+    @PostMapping("/test")
+    public String testSubmit(@ModelAttribute TestModelDB testModelDB , Model model ){
+        TestModelDB testModelDB1 = testModelDBRepository.save(testModelDB);
+        System.out.println("The text is "+ testModelDB1.getText());
+        model.addAttribute("testObj" , testModelDB1);
+        return "testResults" ;
     }
 
 }
