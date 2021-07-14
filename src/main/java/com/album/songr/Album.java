@@ -1,16 +1,30 @@
 package com.album.songr;
 
+import javax.persistence.*;
+
+@Entity
 public class Album {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id ;
+
+    @Column(name="titles", length=50, nullable=false, unique=true)
     private String title ;
     private String artist ;
     private int songCount ;
     private int lengthSecs ;
     private String imageUrl ;
 
+    public Album(){
+
+    }
+
     public Album(String title , String artist){
         this.title = title ;
         this.artist = artist ;
     }
+
+
     public Album(String title , String artist , int songCount , int lengthInSeconds , String imageUrl){
         this.title = title ;
         this.artist = artist ;
@@ -43,5 +57,13 @@ public class Album {
     }
     public void setLengthSecs(int lengthInSeconds){
         this.lengthSecs = lengthInSeconds ;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
