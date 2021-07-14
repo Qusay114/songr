@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class Controllers {
@@ -35,10 +37,29 @@ public class Controllers {
         return "capitalize";
     }
 
-    //    @ResponseBody
     @GetMapping("/albums")
     public String albumsRoute(Model model) {
-        ArrayList<Album> albums = new ArrayList<>();
+        List<Album> albums = new ArrayList<>();
+
+        if(albumRepository.findAll().isEmpty()) {
+            albums = saveAlbumsStatic() ;
+            albumRepository.saveAll(albums);
+        }
+        albums = albumRepository.findAll();
+        model.addAttribute("albums" , albums);
+        model.addAttribute("albumObj", new Album());
+        return "albums";
+    }
+
+    @PostMapping("/albums")
+    public RedirectView addAlbum(@ModelAttribute Album album){
+        albumRepository.save(album);
+        return new RedirectView("/albums");
+    }
+
+
+    private List saveAlbumsStatic(){
+        List<Album> albums = new ArrayList<>();
         Album album1 = new Album("Somain", "stephan");
         album1.setImageUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ72DjWi8QdncosDxEuDykFl3gWWHGhiQq2qg&usqp=CAU");
         album1.setLengthSecs(180);
@@ -57,21 +78,8 @@ public class Controllers {
         albums.add(album1);
         albums.add(album2);
         albums.add(album3);
-        model.addAttribute("album1", album1);
-        model.addAttribute("album2", album2);
-        model.addAttribute("album3", album3);
-        model.addAttribute("albumObj", new Album());
-        return "albums";
+        return albums ;
     }
-
-    @PostMapping("/albums")
-    public String addAlbum(@ModelAttribute Album album , Model model){
-        Album savedAlbum = albumRepository.save(album);
-        System.out.println("The title is "+savedAlbum.getTitle());
-        model.addAttribute("AddedAlbum" , savedAlbum);
-        return "addedAlbum";
-    }
-
 
 
 }
