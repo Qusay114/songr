@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Added Album</title>
+</head>
+<body>
+<h1 th:text="'The Title is ' + ${AddedAlbum.getTitle()}"></h1>
+<h3 th:text="'The artist is '+${AddedAlbum.getArtist()}"></h3>
+<p  th:text="'it has '+${AddedAlbum.getSongCount()}+' musics'"></p>
+<p  th:text="'The length in seconds is ' + ${AddedAlbum.getLengthSecs()}"></p>
+<img th:src="${AddedAlbum.getImageUrl()}" />
+</body>
+</html>
