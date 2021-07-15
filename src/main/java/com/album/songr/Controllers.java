@@ -17,6 +17,8 @@ public class Controllers {
 
     @Autowired
     AlbumRepository albumRepository ;
+    @Autowired
+    SongRepository songRepository ;
 
 
     @GetMapping("/")
@@ -54,6 +56,24 @@ public class Controllers {
     @PostMapping("/albums")
     public RedirectView addAlbum(@ModelAttribute Album album){
         albumRepository.save(album);
+        return new RedirectView("/albums");
+    }
+
+    @GetMapping("/albums/{id}")
+    public String showSongs(@PathVariable Long id , Model model){
+        Album album = albumRepository.findById(id).orElseThrow();
+        List<Song> songs = album.getSongs();
+        model.addAttribute("songs" , songs);
+        return "songs";
+    }
+
+    @PostMapping("/songs")
+    public RedirectView addSong(@RequestParam String title , @RequestParam Long length
+                                ,@RequestParam Long trackNumber , @RequestParam Long albumId){
+        Song song = new Song(title , length , trackNumber);
+        Album album = albumRepository.findById(albumId).orElseThrow();
+        song.setAlbum(album);
+        songRepository.save(song);
         return new RedirectView("/albums");
     }
 

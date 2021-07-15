@@ -1,6 +1,8 @@
 package com.album.songr;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Album {
@@ -8,12 +10,15 @@ public class Album {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id ;
 
-    @Column(name="titles", length=50, nullable=false, unique=true)
+    @Column(name="titles", nullable=false, unique=true)
     private String title ;
     private String artist ;
     private int songCount ;
     private int lengthSecs ;
     private String imageUrl ;
+
+    @OneToMany(mappedBy="album")
+    List<Song> songs ;
 
     public Album(){
 
@@ -47,6 +52,14 @@ public class Album {
     }
     public String getImageUrl(){
         return imageUrl ;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<Song> getSongs(){
+        return songs ;
     }
 
     public void setImageUrl(String imageUrl) {

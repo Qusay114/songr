@@ -13,6 +13,10 @@
         <p  th:text="'The length in seconds is ' + ${album.getLengthSecs()}"></p>
         <img th:src="${album.getImageUrl()}" />
         <br><br>
+<!--        <input th:action="@{'/albums/'+${album.getId()}}" type="button" value="Show Song"  />-->
+   <form th:action="@{'/albums/'+${album.getId()}}" method="get" >
+       <input type="submit" value="Show Songs" />
+   </form>
     </div>
 
 
@@ -23,6 +27,14 @@
         <p>Length in seconds: <input type="number" th:field="*{lengthSecs}"  /></p>
         <p>Image URL: <input type="url" th:field="*{imageUrl}" /></p>
         <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"></p>
+    </form>
+
+    <form th:action="@{songs}" method="post">
+       <p>Song Title: <input type="text" name="title" /> </p>
+        <p>Song Length(seconds): <input type="number" name="length" /></p>
+        <p>Track Number: <input type="number" name="trackNumber" /></p>
+        <p>Album Id: <input type="number" name="albumId" /></p>
+        <input type="submit" value="ADD Song" />
     </form>
 </body>
 </html>

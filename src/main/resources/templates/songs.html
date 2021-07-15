@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>songs</title>
+</head>
+<body>
+
+  <h1>Test Id: <p th:text="${id}"></p></h1>
+<div th:each="song : ${songs}">
+    <h1 th:text="'Song Title : ' + ${song.getTitle()}" ></h1>
+    <h1 th:text="'Song Length : ' + ${song.getLength()}" ></h1>
+    <h1 th:text="'Song Track Number : ' + ${song.getTrackNumber()}" ></h1>
+</div>
+
+</body>
+</html>
