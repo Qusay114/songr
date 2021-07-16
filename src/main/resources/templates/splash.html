@@ -2,12 +2,39 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
     <title>Splash</title>
 </head>
 <body>
-    <h1>Welcome To Our Website</h1>
-    <h1><a href="http://localhost:8080/hello?name=Qusay">Hello Page</a></h1>
-    <h1><a href="http://localhost:8080/capitalize/is it capitalise">Capitalize Page</a></h1>
-    <h1><a href="http://localhost:8080/albums">Albums Page</a></h1>
+<!-- Navigation -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Songr Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/albums">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/songs">songs</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 </body>
 </html>

@@ -2,27 +2,149 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <title>Albums</title>
 </head>
-<body>
+<body th:with="albumID=${20}">
+<!-- Navigation -->
 
-    <div th:each="album : ${albums}" >
-        <h1 th:text="${album.getTitle()}"></h1>
-        <h3 th:text="'The artist is '+${album.getArtist()}"></h3>
-        <p  th:text="'it has '+${album.getSongCount()}+' musics'"></p>
-        <p  th:text="'The length in seconds is ' + ${album.getLengthSecs()}"></p>
-        <img th:src="${album.getImageUrl()}" />
-        <br><br>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Songr Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/albums">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/songs">songs</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="row" style="margin-top:5em" >
+    <div th:each="album : ${albums}" class="card" style="width:400px ; margin-left:3em">
+        <img th:src="${album.getImageUrl()}" class="card-img-top"  alt="Card image" style="height:15em"/>
+        <div class="card-body">
+            <h4 class="card-title" th:text="${album.getTitle()}" ></h4>
+            <p class="card-text" th:text="'The artist is '+${album.getArtist()}"></p>
+            <p class="card-text" th:text="'The Album Id is '+${album.getId()}"></p>
+            <p  class="card-text" th:text="'it has '+${album.getSongCount()}+' musics'"></p>
+            <p  class="card-text" th:text="'The length in seconds is ' + ${album.getLengthSecs()}"></p>
+            <form th:action="@{'/albums/'+${album.getId()}}" method="get" >
+                <input type="submit" value="Show Songs" class="btn btn-primary" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin:10em">
+    <!-- Button to Open Album Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#album">
+        Add Album
+    </button>
+
+    <!-- Button to Open Song Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#song">
+        Add Song
+    </button>
+</div>
+
+<!---->
+<!---->
+<!---->
+<!--Modal of the Song Form-->
+    <!-- The Modal -->
+    <div class="modal" id="song">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" >Song</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form th:action="@{songs}" method="post">
+                        <div class="form-group" style="width:15em">
+                            <input type="text" name="title" class="form-control" placeholder="Song Title" />
+                            <input type="number" name="length" class="form-control" placeholder="Song Length(seconds)"/>
+                            <input type="number" name="trackNumber" class="form-control" placeholder="Track Number" />
+                            <input type="number" name="albumId" class="form-control" placeholder="Album Id" />
+                            <input type="submit" value="ADD Song" class="btn btn-primary"  />
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
+<!---->
+<!---->
+<!---->
+<!--Modal of the Album Form-->
 
-    <form action="#" th:action="@{/albums}" th:object="${albumObj}" method="post">
-        <p>Title: <input type="text" th:field="*{title}"/></p>
-        <p>Artist Name: <input type="text" th:field="*{artist}" /> </p>
-        <p>Songs Counts: <input type="number" th:field="*{songCount}" /> </p>
-        <p>Length in seconds: <input type="number" th:field="*{lengthSecs}"  /></p>
-        <p>Image URL: <input type="url" th:field="*{imageUrl}" /></p>
-        <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"></p>
-    </form>
+<!-- The Modal -->
+<div class="modal" id="album">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Album</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="#" th:action="@{/albums}" th:object="${albumObj}" method="post">
+                    <div class="form-group" style="width:15em">
+                        <input type="text" th:field="*{title}" class="form-control" placeholder="Title"/>
+                        <input type="text" th:field="*{artist}" class="form-control" placeholder="Artist Name" />
+                        <input type="number" th:field="*{songCount}" class="form-control" placeholder="Songs Counts" />
+                        <input type="number" th:field="*{lengthSecs}" class="form-control" placeholder="Length in seconds" />
+                        <input type="url" th:field="*{imageUrl}" class="form-control" placeholder="Image URL" />
+                        <input type="submit" value="Add Album" class="btn btn-primary" />
+                        <input type="reset" value="Reset" class="btn btn-primary" >
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 </body>
 </html>
