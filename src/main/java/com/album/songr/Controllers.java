@@ -67,14 +67,15 @@ public class Controllers {
         return "songs";
     }
 
-    @PostMapping("/songs")
+    @PostMapping("/songs/{albumId}")
     public RedirectView addSong(@RequestParam String title , @RequestParam Long length
-                                ,@RequestParam Long trackNumber , @RequestParam Long albumId){
-        Song song = new Song(title , length , trackNumber);
+                                ,@RequestParam Long trackNumber , @PathVariable Long albumId){
+        Song song = new Song(title , length , trackNumber );
+        System.out.println("ALbum id " + albumId);
         Album album = albumRepository.findById(albumId).orElseThrow();
         song.setAlbum(album);
         songRepository.save(song);
-        return new RedirectView("/albums");
+        return new RedirectView("/albums/{albumId}");
     }
 
 

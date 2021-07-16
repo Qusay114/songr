@@ -2,16 +2,93 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>songs</title>
 </head>
 <body>
 
-  <h1>Test Id: <p th:text="${id}"></p></h1>
-<div th:each="song : ${songs}">
-    <h1 th:text="'Song Title : ' + ${song.getTitle()}" ></h1>
-    <h1 th:text="'Song Length : ' + ${song.getLength()}" ></h1>
-    <h1 th:text="'Song Track Number : ' + ${song.getTrackNumber()}" ></h1>
+<!-- Navigation -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Songr Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/albums">Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/songs">songs</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="row" style="margin-top:5em">
+<div th:each="song : ${songs}" class="card" style="width:400px ; margin-left:4em" >
+    <div class="card-body">
+    <h1 class="card-title" th:text="'Song Title : ' + ${song.getTitle()}" ></h1>
+    <h1 class="card-text" th:text="'Song Length : ' + ${song.getLength()}" ></h1>
+    <h1 class="card-text" th:text="'Song Track Number : ' + ${song.getTrackNumber()}" ></h1>
+    </div>
 </div>
+</div>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#song" style="margin-top:10em ; margin-left:20em">
+      Add Song
+  </button>
+    <!--Modal of the Song Form-->
+    <!-- The Modal -->
+    <div class="modal" id="song">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" >Song</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form th:action="@{'/songs/'+${id}}" method="post">
+                        <div class="form-group" style="width:15em">
+                            <input type="text" name="title" class="form-control" placeholder="Song Title" />
+                            <input type="number" name="length" class="form-control" placeholder="Song Length(seconds)"/>
+                            <input type="number" name="trackNumber" class="form-control" placeholder="Track Number" />
+<!--                            <input type="number" name="albumId" class="form-control" placeholder="Album Id" />-->
+                            <input type="submit" value="ADD Song" class="btn btn-primary"  />
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
 </body>
 </html>
