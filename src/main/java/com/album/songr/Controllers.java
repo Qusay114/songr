@@ -78,6 +78,12 @@ public class Controllers {
         return new RedirectView("/albums/{albumId}");
     }
 
+    @PostMapping("/albumstest")
+    public ResponseEntity<Album> addNewAlbumForTest(@RequestBody Album album){
+        Album savedAlbum = albumRepository.save(album);
+        return new ResponseEntity<>(savedAlbum , HttpStatus.CREATED);
+    }
+
 
     private List saveAlbumsStatic(){
         List<Album> albums = new ArrayList<>();
