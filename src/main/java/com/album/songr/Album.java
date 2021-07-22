@@ -10,7 +10,7 @@ public class Album {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id ;
 
-    @Column(name="titles", nullable=false, unique=true)
+    @Column(name="titles", nullable=false, unique=false)
     private String title ;
     private String artist ;
     private int songCount ;
